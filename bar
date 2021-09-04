@@ -1,0 +1,56 @@
+#!/bin/bash
+
+interval=5
+
+cpu() {
+  cpu_val=$(grep -o "^[^ ]*" /proc/loadavg)
+
+  printf "^c#243b38^^b#Afcabf^ CPU "
+  printf "^c#afcabf^^b#4b6e60^ $cpu_val "
+}
+
+hdd() {
+  hds=$(df -h | grep /dev/mmcblk0p2 | awk '{print $3}')
+  hdf=$(df -h | grep /dev/mmcblk0p2 | awk '{print $2}')
+ 
+  printf "^c#243b38^^b#Afcabf^  "
+  printf "^c#afcabf^^b#4b6e60^ ${hds}/${hdf} "
+}
+
+sep(){
+printf "^b#243b38^^c#7ebaa2^ "
+
+}
+
+cputemp() {
+  printf "^c#243b38^^b#Afcabf^ 﨎 "
+  printf "^c#afcabf^^b#4b6e60^ $(sensors | grep aml_thermal | awk '{ print substr ( $2, 2, 2 )}')°C "
+}
+
+mem() {
+  printf "^c#243b38^^b#Afcabf^  "
+  printf "^c#afcabf^^b#4b6e60^ $(free -h | awk '/^Mem/ { print $3 }' | sed s/i//g) "
+}
+
+sndd() {
+  sndr=$(mixer vol | awk '{ print substr( $7, 1, 2 ) }')
+  
+  printf '%s\n' "墳 ${sndr}"
+}
+
+clock() {
+  printf "^c#243b38^^b#Afcabf^  "
+  printf "^c#afcabf^^b#4b6e60^ $(date '+%a,%d %I:%M %p') "
+}
+
+info() {
+  printf "^b#afcabf^^r02,04,22,10^^c#243b38^  ARMTIX STB "
+}
+
+while true; do
+
+  [ $interval == 0 ] || [ $(($interval % 3600)) == 0 ] 
+  interval=$((interval + 1))
+
+  sleep 30 && xsetroot -name " $(hdd)$(sep)$(mem)$(sep)$(cpu)$(sep)$(cputemp)$(sep)$(clock)"
+done
