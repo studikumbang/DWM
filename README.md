@@ -1,5 +1,3 @@
-# Suckless-STB
-
 ## Penampakan
 ![penampakan](Penampakan1.png)
 Armtix Runit, STB HG680P
