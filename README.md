@@ -1,6 +1,6 @@
 ## Penampakan
 ![penampakan](Penampakan1.png)
-Armtix Runit, STB HG680P
+FreeBSD 13, Ideapad 320-14ISK
 
 ## Sebelum Install
 - Font yang saya pakai dalam dwm build ini adalah `DejaVuSansMono Nerd Font`.
